@@ -22,5 +22,5 @@ flutter:
       android:
         package: fr.bonamy.handlefile
         pluginClass: HandleFilePlugin
-      ios:
-        pluginClass: HandleFilePlugin
+          #ios:
+          #  pluginClass: HandleFilePlugin
