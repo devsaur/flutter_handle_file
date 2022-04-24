@@ -127,53 +127,56 @@ class HandleFileInstall {
   }
 
   void updateIosInfoPlist(String iosConfiguration) async {
-    // read the file
-    final File iOSInfoPlistFile = File(_iOSInfoPlistFileName);
-    final List<String> lines = await iOSInfoPlistFile.readAsLines();
+    print("Not updating plist with:");
+    print(iosConfiguration);
+    print("see, I did not update the plist!");
+    // // read the file
+    // final File iOSInfoPlistFile = File(_iOSInfoPlistFileName);
+    // final List<String> lines = await iOSInfoPlistFile.readAsLines();
 
-    // iterate
-    int arrayDictDepth = 0;
-    bool inSkippedLines = false;
-    List<String> newLines = List();
-    for (int x = 0; x < lines.length; x++) {
-      // get
-      String line = lines[x];
+    // // iterate
+    // int arrayDictDepth = 0;
+    // bool inSkippedLines = false;
+    // List<String> newLines = List();
+    // for (int x = 0; x < lines.length; x++) {
+    //   // get
+    //   String line = lines[x];
 
-      // count depth
-      if (line.contains('<array>') || line.contains('<dict>')) {
-        arrayDictDepth++;
-      }
-      if (line.contains('</array>') || line.contains('</dict>')) {
-        if (--arrayDictDepth == 0) {
-          inSkippedLines = false;
-        }
-      }
+    //   // count depth
+    //   if (line.contains('<array>') || line.contains('<dict>')) {
+    //     arrayDictDepth++;
+    //   }
+    //   if (line.contains('</array>') || line.contains('</dict>')) {
+    //     if (--arrayDictDepth == 0) {
+    //       inSkippedLines = false;
+    //     }
+    //   }
 
-      // now do we need to skip
-      if (line.contains('<key>') && arrayDictDepth == 1) {
-        //print('Stop skipping because of $line');
-        inSkippedLines = false;
-      }
-      if (line.contains('CFBundleDocumentTypes') ||
-          line.contains('UTExportedTypeDeclarations') ||
-          line.contains('LSSupportsOpeningDocumentsInPlace')) {
-        //print('Start skipping because of $line');
-        inSkippedLines = true;
-      }
+    //   // now do we need to skip
+    //   if (line.contains('<key>') && arrayDictDepth == 1) {
+    //     //print('Stop skipping because of $line');
+    //     inSkippedLines = false;
+    //   }
+    //   if (line.contains('CFBundleDocumentTypes') ||
+    //       line.contains('UTExportedTypeDeclarations') ||
+    //       line.contains('LSSupportsOpeningDocumentsInPlace')) {
+    //     //print('Start skipping because of $line');
+    //     inSkippedLines = true;
+    //   }
 
-      // end of dict
-      if (line.contains('</plist>')) {
-        newLines.insertAll(newLines.length - 1, iosConfiguration.split('\n'));
-      }
+    //   // end of dict
+    //   if (line.contains('</plist>')) {
+    //     newLines.insertAll(newLines.length - 1, iosConfiguration.split('\n'));
+    //   }
 
-      // done
-      if (inSkippedLines == false && line.trim().length > 0) {
-        newLines.add(line);
-      }
-    }
+    //   // done
+    //   if (inSkippedLines == false && line.trim().length > 0) {
+    //     newLines.add(line);
+    //   }
+    // }
 
-    // update
-    iOSInfoPlistFile.writeAsString(newLines.join('\n'));
-    print('Android Manifest updated ($_iOSInfoPlistFileName)');
+    // // update
+    // iOSInfoPlistFile.writeAsString(newLines.join('\n'));
+    // print('Android Manifest updated ($_iOSInfoPlistFileName)');
   }
 }
