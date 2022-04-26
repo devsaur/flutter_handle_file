@@ -64,7 +64,7 @@ Stream<String>? getStream() {
 Stream<String> getFilesStream() {
   return getStream()!.transform<String>(
     new StreamTransformer<String, String>.fromHandlers(
-      handleData: (String link, EventSink<String> sink) {
+      handleData: (String link, EventSink<String?> sink) {
         if (link == null) {
           sink.add(null);
         } else {
@@ -87,7 +87,7 @@ Stream<String> getFilesStream() {
 Stream<Uri> getUriFilesStream() {
   return getStream()!.transform<Uri>(
     new StreamTransformer<String, Uri>.fromHandlers(
-      handleData: (String link, EventSink<Uri> sink) {
+      handleData: (String link, EventSink<Uri?> sink) {
         if (link == null) {
           sink.add(null);
         } else {
