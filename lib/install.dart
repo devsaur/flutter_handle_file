@@ -20,7 +20,7 @@ class HandleFileInstall {
 
   void install(List<String> arguments) {
     // check configuration
-    YamlMap config = _loadConfigFile();
+    YamlMap config = _loadConfigFile()!;
     if (!config.containsKey(_yamlBundleIdentifier) ||
         !config.containsKey(_yamlBundleTypeName) ||
         !config.containsKey(_yamlExtensions)) {
@@ -34,8 +34,8 @@ class HandleFileInstall {
 
     // iterate on extensions
     for (YamlMap extensionEntry in config[_yamlExtensions]) {
-      String fileExtension = extensionEntry.keys.first;
-      String mimeType = extensionEntry.values.first;
+      String? fileExtension = extensionEntry.keys.first;
+      String? mimeType = extensionEntry.values.first;
 
       // add to templates
       andConfiguration += androidManifestTemplate(
@@ -62,10 +62,10 @@ class HandleFileInstall {
     updateIosInfoPlist(iosConfiguration);
   }
 
-  YamlMap _loadConfigFile() {
+  YamlMap? _loadConfigFile() {
     final File file = File('pubspec.yaml');
     final String yamlString = file.readAsStringSync();
-    final Map yamlMap = loadYaml(yamlString);
+    final Map? yamlMap = loadYaml(yamlString);
 
     // test
     if (yamlMap == null || !(yamlMap[_yamlKey] is Map)) {

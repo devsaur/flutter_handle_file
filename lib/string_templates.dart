@@ -1,6 +1,6 @@
 String androidManifestTemplate(
-  String fileExtension,
-  String mimeType,
+  String? fileExtension,
+  String? mimeType,
 ) {
   return '''
             <intent-filter>
@@ -72,10 +72,10 @@ String androidManifestTemplate(
 }
 
 String iosInfoPlistTemplate(
-  String bundleIdentifier,
-  String bundleTypeName,
-  String fileExtension,
-  String mimeType,
+  String? bundleIdentifier,
+  String? bundleTypeName,
+  String? fileExtension,
+  String? mimeType,
 ) {
   return '''
 	<key>CFBundleDocumentTypes</key>
@@ -119,7 +119,7 @@ String iosInfoPlistTemplate(
 	</array>''';
 }
 
-String iosAdditionalConfiguration(bool supportsInPlace) {
+String iosAdditionalConfiguration(bool? supportsInPlace) {
   return '''
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<${supportsInPlace == true ? 'true' : 'false'}/>''';

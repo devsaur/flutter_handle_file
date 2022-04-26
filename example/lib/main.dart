@@ -13,12 +13,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  String _latestFile = 'Unknown';
-  Uri _latestUri;
+  String? _latestFile = 'Unknown';
+  Uri? _latestUri;
 
-  StreamSubscription _sub;
+  StreamSubscription? _sub;
 
-  final List<String> _cmds = getCmds();
+  final List<String>? _cmds = getCmds();
   final TextStyle _cmdStyle = const TextStyle(
     fontFamily: 'Courier',
     fontSize: 12.0,
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   @override
   dispose() {
-    if (_sub != null) _sub.cancel();
+    if (_sub != null) _sub!.cancel();
     super.dispose();
   }
 
@@ -67,8 +67,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     });
 
     // Get the latest link
-    String initialFile;
-    Uri initialUri;
+    String? initialFile;
+    Uri? initialUri;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       initialFile = await getInitialFile();
@@ -116,8 +116,8 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     });
 
     // Get the latest Uri
-    Uri initialUri;
-    String initialFile;
+    Uri? initialUri;
+    String? initialFile;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       initialUri = await getInitialUri();
@@ -219,13 +219,13 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   _printAndCopy(String cmd) async {
     print(cmd);
     await Clipboard.setData(new ClipboardData(text: cmd));
-    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+    _scaffoldKey.currentState!.showSnackBar(new SnackBar(
       content: const Text('Copied to Clipboard'),
     ));
   }
 }
 
-List<String> getCmds() {
+List<String>? getCmds() {
   if (Platform.isIOS) {
     return [
       '/usr/bin/xcrun simctl openurl booted "file://\$(pwd)/data/test.pdf"'
